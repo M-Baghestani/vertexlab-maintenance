@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8b2cff">
+  <meta name="description" content="VertexLab در حال بروزرسانی است.">
+  <title>VertexLab | در حال بروزرسانی</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css">
+
+  <style>
+    :root {
+      --ink: #17123f;
+      --muted: #77738d;
+      --violet: #7127ff;
+      --pink: #ff2c98;
+      --line: rgba(116,39,255,.10);
+      --shadow: 0 28px 90px rgba(80, 29, 150, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-height: 100%;
+      background: #fbf9ff;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: Vazir, Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 88% 9%, rgba(255, 44, 152, .14), transparent 28%),
+        radial-gradient(circle at 10% 16%, rgba(113, 39, 255, .13), transparent 29%),
+        radial-gradient(circle at 50% 100%, rgba(151, 57, 255, .10), transparent 35%),
+        linear-gradient(135deg, #fcfbff 0%, #fffaff 48%, #fbf8ff 100%);
+      position: relative;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(112, 39, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(112, 39, 255, .025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), transparent 83%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 430px;
+      height: 430px;
+      left: -170px;
+      bottom: -220px;
+      z-index: -2;
+      border: 1px solid rgba(113, 39, 255, .13);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 45px rgba(113, 39, 255, .025),
+        0 0 0 95px rgba(255, 44, 152, .02);
+      pointer-events: none;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      position: relative;
+    }
+
+    .dots {
+      position: fixed;
+      top: 13%;
+      left: 1.6%;
+      width: 112px;
+      height: 112px;
+      z-index: -1;
+      opacity: .48;
+      background-image: radial-gradient(circle, rgba(113,39,255,.34) 1.4px, transparent 1.6px);
+      background-size: 18px 18px;
+      mask-image: radial-gradient(circle, #000 28%, transparent 75%);
+    }
+
+    .shell {
+      width: min(1060px, 100%);
+      position: relative;
+    }
+
+    .topbar {
+      width: calc(100% - 56px);
+      margin: 0 auto -34px;
+      min-height: 76px;
+      padding: 14px 24px;
+      border: 1px solid rgba(255,255,255,.92);
+      border-radius: 999px;
+      background: rgba(255,255,255,.68);
+      box-shadow:
+        0 15px 45px rgba(81, 35, 137, .09),
+        inset 0 0 0 1px rgba(113,39,255,.035);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 18px;
+      white-space: nowrap;
+    }
+
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 0 6px rgba(255,44,152,.10), 0 0 20px rgba(255,44,152,.45);
+    }
+
+    .brand .lab { color: var(--pink); }
+
+    .mini-contact {
+      direction: ltr;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .2px;
+    }
+
+    .card {
+      min-height: 590px;
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 42px;
+      overflow: hidden;
+      background: linear-gradient(140deg, rgba(255,255,255,.89), rgba(255,255,255,.63));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      position: relative;
+      padding: 106px 64px 48px;
+    }
+
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .card::before {
+      width: 420px;
+      height: 420px;
+      right: -170px;
+      top: -160px;
+      background: radial-gradient(circle, rgba(255,44,152,.13), transparent 67%);
+    }
+
+    .card::after {
+      width: 480px;
+      height: 480px;
+      left: -230px;
+      top: 50px;
+      background: radial-gradient(circle, rgba(113,39,255,.12), transparent 67%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .copy { max-width: 510px; }
+
+    .status {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      color: #6d26e8;
+      background: rgba(113,39,255,.075);
+      border: 1px solid rgba(113,39,255,.10);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 0 0 rgba(255,44,152,.4);
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      margin: 24px 0 18px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      font-weight: 900;
+    }
+
+    h1 span {
+      display: inline-block;
+      color: transparent;
+      background: linear-gradient(100deg, var(--violet) 2%, var(--pink) 88%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 2.1;
+    }
+
+    .contact-title {
+      margin: 28px 0 12px;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .contacts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .contact {
+      min-height: 52px;
+      padding: 11px 13px;
+      border: 1px solid rgba(113,39,255,.08);
+      border-radius: 16px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 25px rgba(73,31,122,.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      min-width: 0;
+    }
+
+    .contact:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,44,152,.25);
+      box-shadow: 0 13px 30px rgba(88,31,150,.10);
+    }
+
+    .contact-icon {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      box-shadow: 0 8px 18px rgba(156,42,222,.22);
+    }
+
+    .contact-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-meta { min-width: 0; }
+
+    .contact-label {
+      display: block;
+      color: #8c879d;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .contact-value {
+      display: block;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 12px;
+      direction: ltr;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .visual {
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .stage {
+      width: min(380px, 92%);
+      aspect-ratio: 1 / .92;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .platform {
+      position: absolute;
+      width: 100%;
+      height: 35%;
+      bottom: 8%;
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at center, #fff 0 34%, #f0e8ff 35% 44%, #fff 45% 68%, #f6f0ff 69% 100%);
+      border: 2px solid rgba(113,39,255,.35);
+      box-shadow:
+        0 25px 45px rgba(90,35,151,.12),
+        inset 0 10px 20px rgba(255,255,255,.9);
+      transform: rotateX(62deg);
+    }
+
+    .platform::after {
+      content: "";
+      position: absolute;
+      inset: -22% -10%;
+      border-radius: 50%;
+      border: 1px dashed rgba(113,39,255,.16);
+    }
+
+    .robot-wrap {
+      position: relative;
+      z-index: 2;
+      width: 250px;
+      height: 280px;
+      animation: float 5s ease-in-out infinite;
+      filter: drop-shadow(0 28px 35px rgba(70, 27, 120, .18));
+    }
+
+    .robot-wrap svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .gear-spin {
+      transform-origin: 205px 78px;
+      animation: spin 7s linear infinite;
+    }
+
+    .tool-spark {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(255,44,152,.8);
+      animation: blink 2.2s ease-in-out infinite;
+    }
+
+    .tool-spark.s1 { top: 34%; right: 14%; }
+    .tool-spark.s2 { top: 40%; right: 8%; animation-delay: .8s; }
+    .tool-spark.s3 { top: 28%; right: 20%; animation-delay: 1.4s; }
+
+    .footer {
+      margin-top: 36px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: #9a95a8;
+      font-size: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer strong { color: #665f79; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,44,152,.42); }
+      70% { box-shadow: 0 0 0 9px rgba(255,44,152,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,44,152,0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes blink {
+      0%, 100% { opacity: .2; transform: scale(.75); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
+
+    @media (max-width: 820px) {
+      .page { padding: 18px; }
+      .topbar {
+        width: calc(100% - 24px);
+        min-height: 68px;
+        padding: 12px 18px;
+      }
+      .mini-contact { display: none; }
+      .card {
+        padding: 92px 28px 32px;
+        border-radius: 32px;
+      }
+      .content {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .copy {
+        max-width: none;
+        text-align: center;
+      }
+      .status,
+      .lead { margin-inline: auto; }
+      .visual {
+        min-height: 300px;
+        order: -1;
+      }
+      .contacts { grid-template-columns: 1fr; }
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 40px; }
+      .lead { font-size: 14px; }
+      .robot-wrap {
+        width: 210px;
+        height: 235px;
+      }
+      .card { padding-inline: 18px; }
+      .brand { font-size: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="dots" aria-hidden="true"></div>
+
+    <section class="shell">
+      <header class="topbar">
+        <div class="brand" aria-label="VertexLab">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span>ورتکس <span class="lab">لب</span></span>
+        </div>
+
+        <div class="mini-contact">vertexlab2080@gmail.com</div>
+      </header>
+
+      <div class="card">
+        <div class="content">
+          <div class="copy">
+            <div class="status">
+              <span class="pulse" aria-hidden="true"></span>
+              نسخه آزمایشی سایت
+            </div>
+
+            <h1>در حال <span>بروزرسانی</span></h1>
+
+            <p class="lead">
+              در حال آماده‌سازی تجربه‌ای تازه، سریع و حرفه‌ای برای شما هستیم.
+              خیلی زود با نسخه جدید ورتکس لب برمی‌گردیم.
+            </p>
+
+            <div class="contact-title">راه‌های ارتباطی</div>
+
+            <div class="contacts">
+              <a class="contact" href="mailto:vertexlab2080@gmail.com" aria-label="ارسال ایمیل">
+                <span class="contact-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6.5h16v11H4z"/>
+                    <path d="m4.5 7 7.5 6 7.5-6"/>
+                  </svg>
+                </span>
+                <span class="contact-meta">
+                  <span class="contact-label">ایمیل</span>
+                  <span class="contact-value">vertexlab2080@gmail.com</span>
+                </span>
+              </a>
+
+              <a class="contact" href="tel:+989194311273" aria-label="تماس تلفنی">
+                <span class="contact-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.2 3.8 5.6 5.1c-.8.4-1.2 1.3-.9 2.1 1.7 5.3 5.8 9.5 11.2 11.2.8.3 1.7-.1 2.1-.9l1.3-2.6-4-1.8-1.1 1.8c-2.1-.9-4.1-2.9-5-5l1.8-1.1-1.8-4Z"/>
+                  </svg>
+                </span>
+                <span class="contact-meta">
+                  <span class="contact-label">تماس</span>
+                  <span class="contact-value">0919 431 1273</span>
+                </span>
+              </a>
+
+              <a class="contact" href="https://bale.ir/mhb2080" target="_blank" rel="noopener" aria-label="ارتباط در بله">
+                <span class="contact-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5.5h16v11H9l-5 3v-14Z"/>
+                    <path d="M8 9h8M8 12.5h5"/>
+                  </svg>
+                </span>
+                <span class="contact-meta">
+                  <span class="contact-label">پیام‌رسان بله</span>
+                  <span class="contact-value">bale.ir/mhb2080</span>
+                </span>
+              </a>
+
+              <a class="contact" href="https://t.me/annihilator2080" target="_blank" rel="noopener" aria-label="ارتباط در تلگرام">
+                <span class="contact-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m3.5 11 16.8-6.4-3 14.8-5.1-4-2.8 2.7.4-4.3 7.6-6.8-9.5 5.8L3.5 11Z"/>
+                  </svg>
+                </span>
+                <span class="contact-meta">
+                  <span class="contact-label">تلگرام</span>
+                  <span class="contact-value">@annihilator2080</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div class="visual" aria-hidden="true">
+            <div class="stage">
+              <div class="platform"></div>
+
+              <div class="robot-wrap">
+                <svg viewBox="0 0 260 300" role="img">
+                  <defs>
+                    <linearGradient id="robotBody" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#ffffff"/>
+                      <stop offset="1" stop-color="#f4efff"/>
+                    </linearGradient>
+                    <linearGradient id="pinkPurple" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#ff3da0"/>
+                      <stop offset="1" stop-color="#7127ff"/>
+                    </linearGradient>
+                  </defs>
+
+                  <ellipse cx="128" cy="256" rx="68" ry="14" fill="rgba(92,38,145,.12)"/>
+
+                  <g transform="translate(178 60) rotate(-18)">
+                    <path d="M5 22c8 3 16 1 22-5l-6-6c2-4 2-9 0-13 6 1 12 5 15 10 3 6 2 13-2 18s-10 8-17 8l-4 12-9-3 5-13c-2-2-3-5-4-8Z" fill="url(#pinkPurple)"/>
+                  </g>
+
+                  <line x1="126" y1="26" x2="126" y2="43" stroke="#7b6dff" stroke-width="5" stroke-linecap="round"/>
+                  <circle cx="126" cy="18" r="8" fill="#ff2c98"/>
+
+                  <rect x="76" y="42" width="100" height="82" rx="24" fill="url(#robotBody)" stroke="#d7cdf7" stroke-width="3"/>
+                  <rect x="90" y="58" width="72" height="32" rx="16" fill="#1f1a50"/>
+                  <circle cx="112" cy="74" r="8" fill="#ff54a7"/>
+                  <circle cx="140" cy="74" r="8" fill="#7a3dff"/>
+                  <path d="M111 101c8 7 22 7 30 0" stroke="#7a6fff" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+                  <g class="gear-spin">
+                    <circle cx="205" cy="78" r="22" fill="#fff" stroke="#d8cef9" stroke-width="3"/>
+                    <path d="M205 60v-8M205 104v-8M223 78h8M179 78h8M217 66l6-6M187 96l6-6M217 90l6 6M187 60l6 6" stroke="#7a36ff" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="205" cy="78" r="8" fill="#ff2c98"/>
+                  </g>
+
+                  <rect x="88" y="128" width="78" height="92" rx="24" fill="url(#robotBody)" stroke="#d7cdf7" stroke-width="3"/>
+                  <rect x="103" y="148" width="48" height="34" rx="14" fill="url(#pinkPurple)" opacity=".16"/>
+                  <circle cx="111" cy="165" r="6" fill="#ff2c98"/>
+                  <circle cx="127" cy="165" r="6" fill="#7a3dff"/>
+                  <circle cx="143" cy="165" r="6" fill="#ff86c3"/>
+                  <rect x="115" y="118" width="24" height="16" rx="8" fill="#efe8ff"/>
+
+                  <g>
+                    <rect x="66" y="142" width="22" height="58" rx="11" fill="#efe8ff" stroke="#d7cdf7" stroke-width="3"/>
+                    <circle cx="77" cy="205" r="12" fill="#fff" stroke="#d7cdf7" stroke-width="3"/>
+                    <rect x="44" y="194" width="38" height="16" rx="8" fill="url(#pinkPurple)"/>
+                  </g>
+
+                  <g transform="translate(160 144)">
+                    <rect x="0" y="0" width="22" height="56" rx="11" fill="#efe8ff" stroke="#d7cdf7" stroke-width="3"/>
+                    <circle cx="12" cy="61" r="12" fill="#fff" stroke="#d7cdf7" stroke-width="3"/>
+                    <g transform="translate(18 54) rotate(24)">
+                      <rect x="0" y="0" width="44" height="10" rx="5" fill="#7a36ff"/>
+                      <rect x="40" y="-3" width="16" height="16" rx="5" fill="#ff2c98"/>
+                    </g>
+                  </g>
+
+                  <g>
+                    <rect x="100" y="214" width="20" height="42" rx="10" fill="#efe8ff" stroke="#d7cdf7" stroke-width="3"/>
+                    <rect x="134" y="214" width="20" height="42" rx="10" fill="#efe8ff" stroke="#d7cdf7" stroke-width="3"/>
+                    <rect x="88" y="250" width="40" height="14" rx="7" fill="#1f1a50"/>
+                    <rect x="126" y="250" width="40" height="14" rx="7" fill="#1f1a50"/>
+                  </g>
+
+                  <path d="M126 188l10 5-10 5-10-5 10-5Z" fill="url(#pinkPurple)"/>
+                </svg>
+
+                <span class="tool-spark s1"></span>
+                <span class="tool-spark s2"></span>
+                <span class="tool-spark s3"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span><strong>VertexLab</strong> — طراحی، توسعه و رشد محصولات دیجیتال</span>
+          <span>© تمامی حقوق محفوظ است</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
